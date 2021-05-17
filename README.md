@@ -28,4 +28,10 @@ Static Server Running on http://127.0.0.1:8001/
 # linux/windows 代码风格检查
 > oook style-check --path=/code
 
+# golang 项目模板生成
+> oook gogen --cli=cobra
+Generating cli application with cobra ...
+> oook gogen --web=echo --db=mongodb
+Generating web application with echo, mongodb ... 
+
 ```

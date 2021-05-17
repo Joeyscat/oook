@@ -12,8 +12,8 @@ var (
 	userLicense string
 
 	rootCmd = &cobra.Command{
-		Use:   "ok",
-		Short: "OK is a very useful toolbox written in golang",
+		Use:   "oook",
+		Short: "OOOK is a very useful tool written in golang",
 		Long:  `something more...`,
 	}
 )
