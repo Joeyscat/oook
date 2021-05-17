@@ -36,6 +36,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of OOOK",
 	Long:  `Print the version number of OOOK`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("OOOK Toolbox v0.9 -- HEAD")
+		fmt.Println("OOOK Toolbox v0.0.1")
 	},
 }
