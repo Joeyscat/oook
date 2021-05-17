@@ -26,7 +26,7 @@ func Execute() error {
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
 
-	staticServerCmd.PersistentFlags().StringVarP(&StaticServerPath, "path", "", ".", "Path for Static Server")
+	staticServerCmd.PersistentFlags().StringVarP(&StaticServerDirectory, "directory", "d", ".", "Directory for Static Server")
 	staticServerCmd.PersistentFlags().UintVarP(&StaticServerPort, "port", "p", 8000, "Port for Static Server")
 
 	rootCmd.AddCommand(versionCmd)

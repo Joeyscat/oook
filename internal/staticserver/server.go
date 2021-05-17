@@ -1,18 +1,25 @@
 package staticserver
 
+import (
+	"fmt"
+	"net/http"
+)
+
 type StaticServer struct {
-	Path string
-	Port uint
+	directory string
+	port      uint
 }
 
-func NewStaticServer(path string, port uint) *StaticServer {
+func NewStaticServer(directory string, port uint) *StaticServer {
 	return &StaticServer{
-		Path: path,
-		Port: port,
+		directory: directory,
+		port:      port,
 	}
 }
 
-func (*StaticServer) Run() error {
+func (s *StaticServer) Run() error {
+	http.Handle("/", http.FileServer(http.Dir(s.directory)))
 
-	return nil
+	fmt.Printf("Static Server Running on http://127.0.0.1:%d/\n", s.port)
+	return http.ListenAndServe(fmt.Sprintf(":%d", s.port), nil)
 }
