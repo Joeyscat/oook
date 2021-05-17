@@ -12,8 +12,8 @@ var (
 	userLicense string
 
 	rootCmd = &cobra.Command{
-		Use:   "oook",
-		Short: "OOOK is a very useful toolbox written in golang",
+		Use:   "ok",
+		Short: "OK is a very useful toolbox written in golang",
 		Long:  `something more...`,
 	}
 )
@@ -24,8 +24,6 @@ func Execute() error {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
-
 	staticServerCmd.PersistentFlags().StringVarP(&StaticServerDirectory, "directory", "d", ".", "Directory for Static Server")
 	staticServerCmd.PersistentFlags().UintVarP(&StaticServerPort, "port", "p", 8000, "Port for Static Server")
 
