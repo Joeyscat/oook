@@ -3,14 +3,11 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/joeyscat/oook/internal/version"
 	"github.com/spf13/cobra"
 )
 
 var (
-	// Used for flags.
-	cfgFile     string
-	userLicense string
-
 	rootCmd = &cobra.Command{
 		Use:   "oook",
 		Short: "OOOK is a very useful tool written in golang",
@@ -36,6 +33,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of OOOK",
 	Long:  `Print the version number of OOOK`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("OOOK Toolbox v0.0.1")
+		fmt.Println(version.FullVersion())
 	},
 }
