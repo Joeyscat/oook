@@ -19,7 +19,7 @@ Static Server Running on http://127.0.0.1:8001/
 
 ## TODO
 ```bash
-# 抓包
+# proxy
 > oook proxy?? -h=127.0.0.1 -p=8000
 
 # restful api
