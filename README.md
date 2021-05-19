@@ -26,8 +26,9 @@ Proxy Server Running on 1080
 # restful api
 > oook rest --data=/api.json
 
-# linux/windows 代码风格检查
-> oook style-check --path=/code
+# linux/windows 换行符互转
+> oook dos2unix --path=/code
+> oook unix2dos --path=/code
 
 # golang 项目模板生成
 > oook gogen --cli=cobra
