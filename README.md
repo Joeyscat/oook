@@ -15,13 +15,14 @@ https://github.com/Joeyscat/oook/releases
 # 静态服务器
 ❯ oook static-server -d=/images -p=8001
 Static Server Running on http://127.0.0.1:8001/
+
+# Proxy(Only Socks5)
+> oook proxy -p=1080
+Proxy Server Running on 1080
 ```
 
 ## TODO
 ```bash
-# proxy
-> oook proxy?? -h=127.0.0.1 -p=8000
-
 # restful api
 > oook rest --data=/api.json
 
