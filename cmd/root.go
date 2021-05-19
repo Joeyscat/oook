@@ -24,8 +24,11 @@ func init() {
 	staticServerCmd.PersistentFlags().StringVarP(&StaticServerDirectory, "directory", "d", ".", "Directory for Static Server")
 	staticServerCmd.PersistentFlags().UintVarP(&StaticServerPort, "port", "p", 8000, "Port for Static Server")
 
+	proxyCmd.PersistentFlags().UintVarP(&ProxyPort, "port", "p", 1080, "Port for Proxy Server")
+
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(staticServerCmd)
+	rootCmd.AddCommand(proxyCmd)
 }
 
 var versionCmd = &cobra.Command{
