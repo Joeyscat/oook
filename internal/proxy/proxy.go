@@ -6,14 +6,20 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"os"
+	"time"
 )
 
+var verbose1 bool
+
 type ProxyServer struct {
-	port uint
+	port    uint
+	verbose bool
 }
 
-func NewProxyServer(port uint) *ProxyServer {
-	return &ProxyServer{port}
+func NewProxyServer(port uint, verbose bool) *ProxyServer {
+	verbose1 = verbose
+	return &ProxyServer{port, verbose}
 }
 
 func (p *ProxyServer) Serve() error {
@@ -63,7 +69,7 @@ func Socks5Auth(client net.Conn) error {
 
 	ver, nMethods := int(buf[0]), int(buf[1])
 	if ver != 5 {
-		return errors.New(fmt.Sprintf("invalid version %d\n", ver))
+		return fmt.Errorf("invalid version %d", ver)
 	}
 
 	// 读取 METHODS 列表
@@ -104,7 +110,7 @@ func Socks5Connect(client net.Conn) (net.Conn, error) {
 
 	ver, cmd, _, atyp := buf[0], buf[1], buf[2], buf[3]
 	if ver != 5 || cmd != 1 {
-		return nil, errors.New(fmt.Sprintf("invalid ver/cmd: ver=%d cmd=%d\n", ver, cmd))
+		return nil, fmt.Errorf("invalid ver/cmd: ver=%d cmd=%d", ver, cmd)
 	}
 
 	// 接下来问题是如何读取 DST.ADDR 和 DST.PORT。
@@ -150,7 +156,7 @@ func Socks5Connect(client net.Conn) (net.Conn, error) {
 	destAddrPort := fmt.Sprintf("%s:%d", addr, port)
 	dest, err := net.Dial("tcp", destAddrPort)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("dial dst[%s] error: %v", destAddrPort, err))
+		return nil, fmt.Errorf("dial dst[%s] error: %v", destAddrPort, err)
 	}
 
 	// 最后一步是告诉客户端，我们已经准备好了
@@ -164,7 +170,7 @@ func Socks5Connect(client net.Conn) (net.Conn, error) {
 	// ATYP 	地址类型
 	// BND.ADDR 服务器和DST创建连接用的地址
 	// BND.PORT 服务器和DST创建连接用的端口
-	n, err = client.Write([]byte{0x05, 0x00, 0x00, 0x01, 0, 0, 0, 0, 0, 0})
+	_, err = client.Write([]byte{0x05, 0x00, 0x00, 0x01, 0, 0, 0, 0, 0, 0})
 	if err != nil {
 		return nil, errors.New("write resp error: " + err.Error())
 	}
@@ -176,7 +182,15 @@ func Socks5Forward(client, target net.Conn) {
 	forward := func(src, dest net.Conn) {
 		defer src.Close()
 		defer dest.Close()
-		io.Copy(src, dest)
+		if verbose1 {
+			rs := io.TeeReader(src, dest)
+			now := time.Now().Format("15:04:05")
+			fmt.Printf("------------------- %s -------------------\n", now)
+			io.Copy(os.Stdout, rs)
+		} else {
+			buf := make([]byte, 2048)
+			io.CopyBuffer(src, dest, buf)
+		}
 	}
 
 	go forward(client, target)

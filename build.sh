@@ -30,8 +30,8 @@ build_for() {
   fi
 }
 
-build_for 'amd64' 'windows' 'oook-.exe'
-build_for 'amd64' 'darwin' 'oook'
+# build_for 'amd64' 'windows' 'oook-.exe'
+# build_for 'amd64' 'darwin' 'oook'
 build_for 'amd64' 'linux' 'oook'
 
 echo 'build success!'

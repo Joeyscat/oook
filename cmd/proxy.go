@@ -6,13 +6,14 @@ import (
 )
 
 var ProxyPort uint
+var ProxyVerbose bool
 
 var proxyCmd = &cobra.Command{
 	Use:   "proxy",
 	Short: "Running a Proxy Server",
 	Long:  `Running a Proxy Server on a special port`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		p := proxy.NewProxyServer(ProxyPort)
+		p := proxy.NewProxyServer(ProxyPort, ProxyVerbose)
 
 		return p.Serve()
 	},

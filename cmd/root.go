@@ -25,6 +25,7 @@ func init() {
 	staticServerCmd.PersistentFlags().UintVarP(&StaticServerPort, "port", "p", 8000, "Port for Static Server")
 
 	proxyCmd.PersistentFlags().UintVarP(&ProxyPort, "port", "p", 1080, "Port for Proxy Server")
+	proxyCmd.PersistentFlags().BoolVarP(&ProxyVerbose, "verbose", "v", false, "Show details of connections")
 
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(staticServerCmd)
