@@ -13,12 +13,15 @@ https://github.com/Joeyscat/oook/releases
 ## 使用
 ```bash
 # 静态服务器
-❯ oook static-server -d=/images -p=8001
+> oook static-server -d=/images -p=8001
 Static Server Running on http://127.0.0.1:8001/
 
 # Proxy(Only Socks5)
 > oook proxy -p=1080
 Proxy Server Running on 1080
+
+# golang 项目生成
+> oook gengo -m github.com/joeyscat/helloworld
 ```
 
 ## TODO

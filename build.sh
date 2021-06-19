@@ -1,6 +1,6 @@
 #! /bin/bash
 
-CURRENT_VERSION=0.0.1
+CURRENT_VERSION=0.0.2
 MODULE=github.com/joeyscat/oook
 APP_NAME=oook
 

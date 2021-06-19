@@ -25,7 +25,7 @@ func init() {
 
 	proxyCmd.PersistentFlags().UintVarP(&ProxyPort, "port", "p", 1080, "Port for Proxy Server")
 
-	genGoCmd.PersistentFlags().StringVarP(&ModuleName, "module", "m", "", "Generate Golang Project")
+	genGoCmd.PersistentFlags().StringVarP(&ModuleName, "module", "m", "", "module name for this project")
 	err := genGoCmd.MarkPersistentFlagRequired("module")
 	if err != nil {
 		panic(err)
