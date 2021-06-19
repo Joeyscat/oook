@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-
 	"github.com/joeyscat/oook/internal/version"
 	"github.com/spf13/cobra"
 )
@@ -26,9 +25,16 @@ func init() {
 
 	proxyCmd.PersistentFlags().UintVarP(&ProxyPort, "port", "p", 1080, "Port for Proxy Server")
 
+	genGoCmd.PersistentFlags().StringVarP(&ModuleName, "module", "m", "", "Generate Golang Project")
+	err := genGoCmd.MarkPersistentFlagRequired("module")
+	if err != nil {
+		panic(err)
+	}
+
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(staticServerCmd)
 	rootCmd.AddCommand(proxyCmd)
+	rootCmd.AddCommand(genGoCmd)
 }
 
 var versionCmd = &cobra.Command{
