@@ -62,13 +62,13 @@ func validateProjectName(project string) bool {
 }
 
 func initProject(moduleName, projectName string) error {
-	err := os.Mkdir(projectName, 666)
+	err := os.Mkdir(projectName, 0755)
 	if err != nil {
 		return err
 	}
 
 	mainFile := path.Join(projectName, "main.go")
-	err = ioutil.WriteFile(mainFile, []byte(mainFileStr), 666)
+	err = ioutil.WriteFile(mainFile, []byte(mainFileStr), 0755)
 	if err != nil {
 		return err
 	}
