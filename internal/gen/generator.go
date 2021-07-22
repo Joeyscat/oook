@@ -1,7 +1,6 @@
 package gen
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -27,7 +26,7 @@ func (g *GoGenerator) Generate() error {
 	moduleName := g.module
 
 	if !validateModuleName(moduleName) {
-		return errors.New(fmt.Sprintf("module name [%s] invalid", moduleName))
+		return fmt.Errorf("module name [%s] invalid", moduleName)
 	}
 
 	projectName := moduleName
@@ -37,7 +36,7 @@ func (g *GoGenerator) Generate() error {
 		projectName = ss[len(ss)-1]
 	}
 	if !validateProjectName(projectName) {
-		return errors.New(fmt.Sprintf("project name [%s] invalid", projectName))
+		return fmt.Errorf("project name [%s] invalid", projectName)
 	}
 
 	return initProject(moduleName, projectName)
@@ -45,20 +44,12 @@ func (g *GoGenerator) Generate() error {
 
 func validateModuleName(module string) bool {
 	// TODO
-	if strings.TrimSpace(module) == "" {
-		return false
-	}
-
-	return true
+	return strings.TrimSpace(module) != ""
 }
 
 func validateProjectName(project string) bool {
 	// TODO
-	if strings.TrimSpace(project) == "" {
-		return false
-	}
-
-	return true
+	return strings.TrimSpace(project) != ""
 }
 
 func initProject(moduleName, projectName string) error {
