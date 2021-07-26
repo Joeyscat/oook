@@ -2,18 +2,14 @@ package cmd
 
 import (
 	"fmt"
-
+	"github.com/joeyscat/oook/internal/version"
 	"github.com/spf13/cobra"
 )
 
 var (
-	// Used for flags.
-	cfgFile     string
-	userLicense string
-
 	rootCmd = &cobra.Command{
-		Use:   "ok",
-		Short: "OK is a very useful toolbox written in golang",
+		Use:   "oook",
+		Short: "OOOK is a very useful tool written in golang",
 		Long:  `something more...`,
 	}
 )
@@ -27,8 +23,18 @@ func init() {
 	staticServerCmd.PersistentFlags().StringVarP(&StaticServerDirectory, "directory", "d", ".", "Directory for Static Server")
 	staticServerCmd.PersistentFlags().UintVarP(&StaticServerPort, "port", "p", 8000, "Port for Static Server")
 
+	proxyCmd.PersistentFlags().UintVarP(&ProxyPort, "port", "p", 1080, "Port for Proxy Server")
+
+	genGoCmd.PersistentFlags().StringVarP(&ModuleName, "module", "m", "", "module name for this project")
+	err := genGoCmd.MarkPersistentFlagRequired("module")
+	if err != nil {
+		panic(err)
+	}
+
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(staticServerCmd)
+	rootCmd.AddCommand(proxyCmd)
+	rootCmd.AddCommand(genGoCmd)
 }
 
 var versionCmd = &cobra.Command{
@@ -36,6 +42,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of OOOK",
 	Long:  `Print the version number of OOOK`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("OOOK Toolbox v0.9 -- HEAD")
+		fmt.Println(version.FullVersion())
 	},
 }
