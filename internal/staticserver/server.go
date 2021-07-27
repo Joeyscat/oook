@@ -11,8 +11,9 @@ import (
 )
 
 type StaticServer struct {
-	directory string
-	port      uint
+	directory       string
+	uploadDirectory string
+	port            uint
 }
 
 func NewStaticServer(directory string, port uint) *StaticServer {
@@ -20,6 +21,10 @@ func NewStaticServer(directory string, port uint) *StaticServer {
 		directory: directory,
 		port:      port,
 	}
+}
+
+func (s *StaticServer) SetUploadDirectory(d string) {
+	s.uploadDirectory = d
 }
 
 func (s *StaticServer) Run() error {
@@ -48,7 +53,7 @@ func (s *StaticServer) upload() func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		uploadDir := path.Join(s.directory, "upload")
+		uploadDir := path.Join(s.uploadDirectory)
 
 		if !util.DirExists(uploadDir) {
 			err := os.Mkdir(uploadDir, 0755)

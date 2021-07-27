@@ -7,6 +7,7 @@ import (
 
 var StaticServerPort uint
 var StaticServerDirectory string
+var StaticServerUploadDirectory string
 
 var staticServerCmd = &cobra.Command{
 	Use:   "static-server",
@@ -14,6 +15,10 @@ var staticServerCmd = &cobra.Command{
 	Long:  `Running a Static Server on a special port`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		server := staticserver.NewStaticServer(StaticServerDirectory, StaticServerPort)
+
+		if StaticServerUploadDirectory != "" {
+			server.SetUploadDirectory(StaticServerUploadDirectory)
+		}
 
 		return server.Run()
 	},

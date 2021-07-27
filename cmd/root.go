@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/joeyscat/oook/internal/version"
 	"github.com/spf13/cobra"
 )
@@ -20,7 +21,8 @@ func Execute() error {
 }
 
 func init() {
-	staticServerCmd.PersistentFlags().StringVarP(&StaticServerDirectory, "directory", "d", ".", "Directory for Static Server")
+	staticServerCmd.PersistentFlags().StringVarP(&StaticServerDirectory, "dir", "d", ".", "Directory for Static Server")
+	staticServerCmd.PersistentFlags().StringVarP(&StaticServerUploadDirectory, "upload-dir", "u", ".", "Upload Directory for Static Server")
 	staticServerCmd.PersistentFlags().UintVarP(&StaticServerPort, "port", "p", 8000, "Port for Static Server")
 
 	proxyCmd.PersistentFlags().UintVarP(&ProxyPort, "port", "p", 1080, "Port for Proxy Server")
